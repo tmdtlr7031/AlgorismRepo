@@ -22,7 +22,8 @@ import math
 
 '''
     내 접근
-    : 모든경우의 수 구하고, 한 자리 수는 따로 추가해줬음.. 어디서 비는지 모르겠..
+    : 모든경우의 수 구하고, 한 자리 수는 따로 추가해줬음.. 잘못된 부분 발견
+    : permutations(numbers,len(numbers)))) 으로 했기때문에 3자리인경우 2자리수 조합은 탐색을 안함. (3자리, 한자리만 set에 담김..!)
     
     def solution(numbers):
         # 한 자리 수는 따로 추가
@@ -43,31 +44,31 @@ import math
         return len(makeData)
 '''
 
-def solution(numbers):
-    # 한 자리 수는 따로 추가
-    makeData = set(list(map(lambda x : int("".join(x)), permutations(numbers,len(numbers)))) + list(map(int, numbers)))
-    makeData.discard(1)
-    makeData.discard(0)
-    print("makeData : ",makeData)
-    
-    useIter = makeData.copy()
+def check(num):
+    roop = int(math.sqrt(num))
+    # 0, 1은 소수 카운트에서 뺌
+    if num < 2:
+        return False
+    # 제곱근한게 5.2131면 int()하면 5니까 +1해줘서 5까지 돌게
+    for k in range(2, roop+1):
+        if num % k == 0:
+            return False
+    return True
 
-    for i in useIter:
-        if i <= 1:
-            continue
-        else:
-            for j in range(2, int(math.sqrt(i))+1):
-                if i % j == 0:
-                    makeData.discard(i)
-    return len(makeData)
+def solution(numbers):
+    answer = set()
+    # 길이가 1이상임
+    for i in range(1, len(numbers)+1):
+        makeData = set(list(map(lambda x : int("".join(x)), permutations(numbers,i))))
+        print("makeData : ",makeData)
+
+        for j in makeData:
+            if check(j):
+                answer.add(j)
+    print("final answer : ",answer)
+    return len(answer)
 
 # print(solution("17"))
 # print(solution("011"))
 # print(solution("0110"))
 print(solution("7843")) # 12 나와야함
-
-# {4738, 3, 4, 3847, 7, 4873, 8, 7438, 3478, 8473, 4378, 8347, 7834, 8734, 3487, 3874, 7843, 4387, 3748, 8743, 4783, 7348, 8374, 7483, 3784, 7384, 4837, 8437}
-# {3, 37, 7, 743, 73, 487, 43, 3847, 47, 4783, 83, 347}
-
-
-# {3, 3847, 7, 4783}
