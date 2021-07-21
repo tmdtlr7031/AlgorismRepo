@@ -21,8 +21,8 @@
 '''
     그래프 시각화 (참고, 여기선 왼->오 순으로 탐색함)
                 A
-            B       C
-        D       G   H   I
+            B           C
+        D           G   H   I
      E     F            J
 '''
 initGraph = dict();
@@ -41,7 +41,7 @@ print('==========')
 print(initGraph)
 print('==========')
 
-visited = dict()  # 방문이력, list 시 if node not in visited 부분에서 O(n) 이므로 hash로 구현
+visited_BFS = dict()  # 방문이력, list 시 if node not in visited 부분에서 O(n) 이므로 hash로 구현
 
 import collections
 def BFS(graph, start_node, visited):
@@ -56,10 +56,31 @@ def BFS(graph, start_node, visited):
             
     return list(visited.keys())
 
-print('BFS = ', BFS(initGraph, 'A', visited))
+print('BFS = ', BFS(initGraph, 'A', visited_BFS))
 
 
 # =========================================================================================================
 '''
     DFS (깊이우선탐색)
+    - 모든 노드 탐색
+    - 스택, 재귀로 구현
+    - 속도는 BFS보다 빠르다고함
 '''
+visited_DFS = dict()
+visited_DFS_recursive = []
+
+def DFS(graph, start_node, visited):
+    will_visit = [start_node]
+
+    while will_visit:
+        node = will_visit.pop()
+        if node not in visited:
+            visited[node] = True  # 방문이력에 추가
+            will_visit.extend(graph[node])
+
+    return list(visited.keys())
+
+
+
+print('DFS nomal= ', DFS(initGraph, 'A', visited_DFS))
+print('DFS recur= ', DFS_recursive(initGraph, 'A', visited_DFS_recursive))
