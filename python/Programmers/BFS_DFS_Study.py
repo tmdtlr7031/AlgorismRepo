@@ -65,6 +65,7 @@ print('BFS = ', BFS(initGraph, 'A', visited_BFS))
     - 모든 노드 탐색
     - 스택, 재귀로 구현
     - 속도는 BFS보다 빠르다고함
+    - https://juhee-maeng.tistory.com/25 DFS 주의점 참고
 '''
 visited_DFS = dict()
 visited_DFS_recursive = []
@@ -80,7 +81,15 @@ def DFS(graph, start_node, visited):
 
     return list(visited.keys())
 
+# 재귀
+def DFS_recursive(graph, start_node, visited):
+    visited.append(start_node)
 
+    for node in graph[start_node]:
+        if node not in visited:
+            DFS_recursive(graph, node, visited)
+
+    return visited
 
 print('DFS nomal= ', DFS(initGraph, 'A', visited_DFS))
 print('DFS recur= ', DFS_recursive(initGraph, 'A', visited_DFS_recursive))
