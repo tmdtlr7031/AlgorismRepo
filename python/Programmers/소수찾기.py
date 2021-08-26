@@ -26,20 +26,10 @@ print(solution(10))  # 4
     다른사람의 에라토스테네스의 체
 
     def solution(n):
-        num=set(range(2,n+1))
-
-        for i in range(2,n+1):
+        num = set(range(2, n+1)) # 2~n까지. (0,1은 제외)
+        for i in range(2, int(n**0.5)+1): # n의 제곱근까지만 탐색 : 합성수는 제곱근까지만 탐색해도 된다 ex) 16 => 2*8 로 2와 8이 한 쌍이기 때문에 제곱근인 4까지만 탐색해도 대응되는 8은 지워짐
             if i in num:
-                num-=set(range(2*i,n+1,i))
+                num -= set(range(i*i, n+1, i)) # n=10일때 2 탐색 시 4,6,8,10이 지워지고 3일때는 6,9가 지워지는데 이미 6은 지워졌기때문에 i^2부터 탐색하면 좀 더 개선
+
         return len(num)
 '''
-
-print(20**0.5)
-
-num = set(range(2, 21))
-print(num)
-
-for i in range(2, int(20**0.5)+1):
-    if i in num:
-        num -= set(range(i*i, 20+1, i))
-print(num)
