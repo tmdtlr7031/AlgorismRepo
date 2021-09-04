@@ -32,13 +32,13 @@ def solution(rows, columns, queries):
 
         # 오른쪽 세로
         for i in range(c-1, a-1, -1):
-            data[i][d-1] = data[i+1][d-1]
-            small = min(small, data[i+1][d-1])
+            data[i][d-1] = data[i-1][d-1]
+            small = min(small, data[i-1][d-1])
         
         # 상단 가로
-        for i in range(b-1, d-1):
-            data[a-1][i] = data[a-1][i+1]
-            small = min(small, data[a-1][i+1])
+        for i in range(d-1, b-1, -1):
+            data[a-1][i] = data[a-1][i-1]
+            small = min(small, data[a-1][i-1])
         
         data[a-1][b] = tmp  # 맨처음 8이 오른쪽으로 한 칸 가야함.
         answer.append(small) # 최소값 추가
