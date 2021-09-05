@@ -31,6 +31,8 @@
     r = a%b 일때 
 
     a,b -> b,r -> r이 0일때 b가 최대공약수
+
+    * from fractions import gcd ==> 최대공약수..
 '''
 def solution(n, m):
     # 둘 중 큰 값, 작은 값 return
