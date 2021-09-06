@@ -37,5 +37,24 @@ def solution(expression):
 
     return answer
 
-print(solution("100-200*300-500+20"))
 
+
+'''
+    다른 사람 풀이 (이건 괄호로 우선순위를 만들어가는 과정인데 실행하면서 봐야활듯..)
+    - split 시 없는 문자면 그대로 나옴.. index()와 다르게 에러 안나옴
+    
+    def solution(expression):
+    operations = [('+', '-', '*'),('+', '*', '-'),('-', '+', '*'),('-', '*', '+'),('*', '+', '-'),('*', '-', '+')] # 모든 경우의 수 (-,*만 있는 경우 모든 경우의 수는 2!, 이 문제에선 +-*만쓰기 때문에 3!)
+    answer = []
+    for op in operations:
+        a = op[0]
+        b = op[1]
+        temp_list = []
+        for e in expression.split(a):
+            temp = [f"({i})" for i in e.split(b)]
+            temp_list.append(f'({b.join(temp)})')
+        answer.append(abs(eval(a.join(temp_list))))
+    return max(answer)
+'''
+
+print(solution("100-200*300-500+20"))  # 60420
